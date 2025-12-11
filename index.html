@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Safe and Non-Conservative Contingency Planning for Autonomous Vehicles via Online Learning-Based Reachable Set Barriers">
+  <meta name="keywords" content="Safety-critical planning; Autonomous vehicles; Trajectory optimization; Alternating direction method of multipliers">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Safe and Non-Conservative Contingency Planning for Autonomous Vehicles via Online Learning-Based Reachable Set Barriers</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" type="image/svg+xml" href="./static/images/favicon.svg" />
+  <link rel="icon" type="image/png" href="./static/images/favicon.png" />
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({startOnLoad:true});</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Safe and Non-Conservative Contingency Planning for Autonomous Vehicles via Online Learning-Based Reachable Set Barriers</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">Rui Yang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://zack4417.github.io/">Lei Zheng</a><sup>1</sup>,</span>   
+            <span class="author-block">
+              <a href="https://cde.nus.edu.sg/ece/staff/ge-shuzhi-sam/">Shuzhi Sam Ge</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://ece.hkust.edu.hk/junma">Jun Ma</a><sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Robotics and Autonomous Systems Thrust, HKUST(Guangzhou)</span>
+            <span class="author-block"><sup>2</sup>Department of Electrical and Computer Engineering, National University of Singapore</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- <span class="link-block">
+                <a href="--"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://youtu.be/2impj0nFhdM"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="https://github.com/zack4417/OACP"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+Autonomous vehicles must navigate dynamically uncertain environments while balancing safety requirements and driving efficiency. This challenge is exacerbated by the unpredictable nature of surrounding human-driven vehicles (HVs) and perception inaccuracies, which require planners to adapt to evolving uncertainties while maintaining safe trajectories. 
+Overly conservative planners degrade driving efficiency, while deterministic approaches may fail dangerously with infeasibility when encountering sudden, unexpected maneuvers. 
+To address these issues, we propose a real-time contingency trajectory optimization framework. By employing event-triggered online learning of HV control-intent sets, our method dynamically quantifies multi-modal HV uncertainties and refines the forward reachable set (FRS) incrementally. Crucially, we enforce invariant safety through FRS-based barrier constraints that ensure safety without reliance on accurate trajectory prediction of HVs.  %despite inaccurate HV prediction
+These constraints are embedded in contingency trajectory optimization and solved efficiently through consensus alternative direction method of multipliers (ADMM). The system continuously adapts to the uncertainties in HV behaviors, preserving feasibility and safety without resorting to excessive conservatism. 
+High-fidelity simulations on highway and urban scenarios, and 1:10-scale hardware experiments demonstrate significant improvements in driving efficiency and passenger comfort while maintaining safety under uncertainty.          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Simulation Results Section -->
+    <div class="column">
+      <div class="content">
+        <h2 class="title is-3">Simulation</h2>
+        <div class="content has-text-justified">
+          <h3 class="title is-4 mt-6">Highway Scenario (NGSIM Dataset)</h3>
+          
+          <p class="has-text-centered">
+            <b>
+              An HV in the leftmost lane initiates a rightward staged lane change, briefly pauses in the second leftmost lane, and then abruptly resumes its rightward maneuver just as the EV approaches. Meanwhile, other HVs maintain steady driving. 
+              The EV is required to dynamically capture the uncertain HV intentions and proactively responds to the potential cut-in of the HV.
+            </b> 
+          </p>
+          
+          
+          <!-- Third-person View -->
+          <h4 class="title is-5 has-text-centered">Ablations</h4>
+          <div class="columns is-centered">
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/highway_proposed.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>Our method</strong>: Online update the HV FRS for defensive driving via a contingency planning framework.
+              </p>
+            </div>
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/highway_deterministic_reachable.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>Deterministic-Barrier-Planner</strong>: Rely on deterministic prediction, resulting in collission with sudden cut-in HV.
+              </p>
+            </div>
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/highway_robust_reachable.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>Worst-Case-Barrier-Planner</strong>: Yield the HV conservatively with premature deceleration. 
+              </p>
+            </div>
+          </div>
+
+          <!-- Third-person View -->
+          <h4 class="title is-5 has-text-centered">Comparisons</h4>
+          <div class="columns is-centered">
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/highway_proposed.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>Our method</strong>: Smooth speed adjustment with moderate lateral avoidance.
+              </p>
+            </div>
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/highway_deterministic_nmpc.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>ST-RHC [7]</strong>: Resort to last-minute aggressive avoidance. 
+              </p>
+            </div>
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/highway_reachable_nmpc.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>Uncertainty-Aware Planner [44]</strong>: Keep safe with excessive deceleration and abrupt lateral maneuvers.
+              </p>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column">
+              <img src="figs/highway_p.png" alt="highway_p">
+              <p class="has-text-centered is-italic mt-2">Trajectory and speed profiles of the EV under different planning methods in the abrupt cut-in scenario.</p>
+            </div>
+            <div class="column">
+              <img src="figs/highway_a.png" alt="highway_a">
+              <p class="has-text-centered is-italic mt-2">Evolution of longitudinal and lateral acceleration profiles of EV with different planning methods (bounds shown as dashed lines).</p>
+            </div>
+          </div>
+
+
+          <!-- Performance Evaluation Table -->
+          <div class="box mt-6">
+            <h3 class="title is-4 has-text-centered">Performance Evaluation Across Key Metrics</h3>
+            <div class="table-container">
+              <table class="table is-bordered is-striped is-fullwidth">
+                <thead>
+                  <tr>
+                    <th rowspan="2">Method</th>
+                    <th colspan="2" class="has-text-centered">Safety</th>
+                    <th colspan="2" class="has-text-centered">Comfort</th>
+                    <th colspan="2" class="has-text-centered">Efficiency</th>
+                    <th rowspan="2">Time (s)</th>
+                  </tr>
+                  <tr>
+                    <th>Coll. (%)</th>
+                    <th>Min. (m)</th>
+                    <th>Jerk<sub>x</sub> (m/s<sup>3</sup>)</th>
+                    <th>Jerk<sub>y</sub> (m/s<sup>3</sup>)</th>
+                    <th>Speed (m/s)</th>
+                    <th>Dist. (m)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Deter. Barr. Pl.</td>
+                    <td>27.27</td>
+                    <td>0.31</td>
+                    <td>5.00</td>
+                    <td>3.21</td>
+                    <td>19.86</td>
+                    <td>234.05</td>
+                    <td>0.035</td>
+                  </tr>
+                  <tr>
+                    <td>Wors. Barr. Pl.</td>
+                    <td>0.00</td>
+                    <td>6.53</td>
+                    <td>6.17</td>
+                    <td>7.08</td>
+                    <td>15.75</td>
+                    <td>186.07</td>
+                    <td>0.033</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Proposed</strong></td>
+                    <td><strong>0.00</strong></td>
+                    <td><strong>1.48</strong></td>
+                    <td><strong>4.41</strong></td>
+                    <td><strong>3.13</strong></td>
+                    <td><strong>19.31</strong></td>
+                    <td><strong>228.38</strong></td>
+                    <td><strong>0.034</strong></td>
+                  </tr>
+                  <tr>
+                    <td>ST-RHC <sup>[7]</sup></td>
+                    <td>18.18</td>
+                    <td>0.35</td>
+                    <td>6.39</td>
+                    <td>3.83</td>
+                    <td>20.21</td>
+                    <td>239.49</td>
+                    <td>0.029</td>
+                  </tr>
+                  <tr>
+                    <td>Uncert. Pl. <sup>[44]</sup></td>
+                    <td>0.00</td>
+                    <td>5.61</td>
+                    <td>9.67</td>
+                    <td>10.23</td>
+                    <td>14.28</td>
+                    <td>168.16</td>
+                    <td>0.038</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="is-italic has-text-centered mt-2">
+              Stress testing shows that the proposed method achieves superior safety (0% collision rate) while preserving comparable travel efficiency and comfort metrics.
+            </p>
+            <p class="has-text-centered is-size-7 mt-1">
+              [7] Zheng et al. (2024) | [44] Zhou et al. (2025)
+            </p>
+          </div>
+
+
+
+
+          <!-- Intersection -->
+          <h3 class="title is-4 mt-6">Unsignalized Intersection Scenario</h3>
+
+          <p class="has-text-centered">
+            <b>
+              An oncoming southbound HV initially exhibits normal driving behavior before abruptly executing a right turn across the intended path of the EV.
+              The EV is required to handle dense traffic and emergent conflicts with proactive defensive maneuvers for HV uncertainties.
+            </b> 
+          </p>
+ 
+          
+          
+          <!-- Third-person View -->
+          <h4 class="title is-5 has-text-centered">Ablations</h4>
+          <div class="columns is-centered">
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/intersection_proposed.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>Our method</strong>: Safely navigate with anticipatory deceleration and controlled rightward avoidance maneuvers.
+              </p>
+            </div>
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/intersection_reachable_deterministic.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>Deterministic-Barrier-Planner</strong>: Lack of defensive driving capability to handle uncertain HV behaviors.
+              </p>
+            </div>
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/intersection_reachable_robust.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>Worst-Case-Barrier-Planner</strong>: Yield until intersection clearance with excessive early deceleration.
+              </p>
+            </div>
+          </div>
+
+          <!-- Third-person View -->
+          <h4 class="title is-5 has-text-centered">Comparisons</h4>
+          <div class="columns is-centered">
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/intersection_proposed.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>Our method</strong>: Preserve the feasibility of safe trajectories, supporting defensive driving in uncertain traffic conflicts.
+              </p>
+            </div>
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/intersection_nmpc.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>ST-RHC [7]</strong>: Collide with HV and result in planner infeasibility due to rapidly shrinking feasible space between adjacent vehicles.
+              </p>
+            </div>
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/intersection_reachable_nmpc.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                <strong>Uncertainty-Aware Planner [43]</strong>: Navigate conservatively with excessive speed reduction and the shortest travel distance.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <h3 class="title is-4">Sensitivity Analysis</h3> -->
+    <div class="columns">
+      <div class="column">
+        <img src="figs/intersection_p.png" alt="intersection_p">
+        <p class="has-text-centered is-italic mt-2">Trajectory comparison in the intersection scenario demonstrates coordinated defensive deceleration and proactive lateral adjustments, achieving the longest navigation distance.</p>
+      </div>
+      <div class="column">
+        <img src="figs/intersection_min_dist.png" alt="intersection_min_dist">
+        <p class="has-text-centered is-italic mt-2">The minimum EV-HV distances show that our method maintains appropriate safety margins.</p>
+      </div>
+      
+    </div>
+
+
+
+     <h3 class="title is-4">Sensitivity Analysis</h3>
+    <div class="columns">
+      <div class="column">
+        <img src="figs/consensus_step.png" alt="consensus_step">
+        <p class="has-text-centered is-italic mt-2">Impact of the consensus step parameter N_s on intersection navigation behaviors. Smaller values enable aggressive maneuvers while larger values enforce conservative strategies with preemptive deceleration.</p>
+      </div>
+      <div class="column">
+        <img src="figs/prob.png" alt="prob">
+        <p class="has-text-centered is-italic mt-2">Effect of the weighting parameter p_s on intersection navigation behaviors. Higher values emphasize FRS-based safety constraints, resulting in more defensive behaviors.</p>
+      </div>
+    </div>
+
+
+    <!-- Hardware Experiments Section -->
+    <div class="column">
+      <div class="content">
+        <h2 class="title is-3">Hardware Experiments</h2>
+        <div class="content has-text-justified">
+          <p class="has-text-centered">
+            <b>Validation on 1:10 scale Ackermann mobile robot platform in overtaking scenarios</b>
+          </p>
+          
+          <div class="columns">
+            
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/output_3.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                Scenario I: The EV (black) overtakes an HV (white) executing aggressive, erratic lane intrusion.
+              </p>
+            </div>
+            <div class="column">
+              <video class="video-player" autoplay muted loop playsinline>
+                <source src="videos/deter_3.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered is-italic mt-2">
+                Scenario II: The EV (black) overtakes an HV (white) with steady lane intrusion.
+              </p>
+            </div>
+            <div class="column">
+              <div class="box">
+                <h3 class="title is-5">Experimental Setup</h3>
+                <ul>
+                  <li>TianRacer robot with NVIDIA Jetson Xavier NX</li>
+                  <li>1:10 scale vehicle (380mm × 210mm)</li>
+                  <li>OptiTrack motion capture system (180Hz)</li>
+                  <li>Real-time planning at 10Hz</li>
+                  <li>Scenarios with different HV behavior uncertainties</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <h3 class="title is-4">Real-World Navigation Snapshots</h3>
+          <div class="columns">
+            <div class="column">
+              <img src="figs/aggressive.png" alt="mild intersection">
+              <p class="has-text-centered is-italic mt-2">Scenario I: The EV (red dashed box) maintains both progress and safety with relatively large distance from the HV.</p>
+            </div>
+            <div class="column">
+              <img src="figs/steady.png" alt="aggressive through">
+              <p class="has-text-centered is-italic mt-2">Scenario II: The EV (red dashed box) naturally generates overtaking trajectories with reduced conservatism.</p>
+            </div>
+          </div>
+
+          <h3 class="title is-4">Data Analysis</h3>
+          <div class="columns">
+            <div class="column">
+              <img src="figs/exp_p.png" alt="exp_p">
+              <p class="has-text-centered is-italic mt-2">Overtaking trajectory comparison under different uncertainty levels. Scenario I (Top) with erratic HV shows larger safety margins against intrusion risks; Scenario II (Bottom) with relatively steady HV demonstrates mild overtaking maneuvers with reduced conservatism.</p>
+            </div>
+            <div class="column">
+              <img src="figs/Triggering.png" alt="triggering">
+              <p class="has-text-centered is-italic mt-2">The triggering condition prompts updates of control-intent set. Scenario I (left) shows a more rapid increase of set volume corresponding to aggressive behaviors than that in Scenario II (right).</p>
+            </div>
+          </div>
+
+
+          
+
+          
+          <div class="box mt-5">
+            <h3 class="title is-5">Key Results</h3>
+            <ul>
+              <li> Maintain safe and non-conservative driving against possible lane intrusions</li>
+              <li> Dynamically update the HV FRS for real-time safety assurance</li>   
+              <li> Achieve real-time performance under uncertain traffic conditions</li>   
+             </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Computational Performance Section -->
+    <!-- <div class="column">
+      <div class="content">
+        <h2 class="title is-3">Computational Performance</h2>
+        <div class="content has-text-justified">
+          <div class="columns">
+            <div class="column">
+              <img src="figs/time.png" alt="Computational Performance">
+              <p class="has-text-centered is-italic mt-2">
+                Optimization time across varying number of obstacles
+              </p>            
+            </div>
+            <div class="column">
+              <div class="box"> 
+              <ul>
+                <li>Linear complexity with respect to number of obstacles: 𝒪(M)</li>
+                <li>Maximum computation per iteration stabilizes at 5-6 obstacles</li>
+                <li>Efficient constraint handling through parallel ADMM updates</li>
+              </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{yang2025safe,
+  title={Safe and Non-Conservative Contingency Planning for Autonomous Vehicles via Online Learning-Based Reachable Set Barriers},
+  author={Rui Yang, Lei Zheng, and Jun Ma},
+  journal={arXiv preprint arXiv:--},
+  year={2025}
+}</code></pre>
+  </div>
+</section> 
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
